@@ -1,0 +1,362 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Service",
+    "description": "API documentation for CoinGecko and NewsAPI",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/coins": {
+      "get": {
+        "summary": "Get list of coins",
+        "responses": {
+          "200": {
+            "description": "List of coins",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "current_price": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/coins/{coin_id}": {
+      "get": {
+        "summary": "Get details of a specific coin",
+        "parameters": [
+          {
+            "name": "coin_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID of the coin"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the coin",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "symbol": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "market_data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/coins/price": {
+      "post": {
+        "summary": "Get price of specific coins",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ids": {
+                  "type": "string",
+                  "description": "Comma separated list of coin IDs"
+                },
+                "vs_currencies": {
+                  "type": "string",
+                  "description": "Currency to compare against"
+                }
+              },
+              "required": ["ids"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Prices of the coins",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/api/coins/market_chart": {
+      "post": {
+        "summary": "Get market chart data",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Coin ID"
+                },
+                "vs_currency": {
+                  "type": "string",
+                  "description": "Currency to compare against"
+                },
+                "days": {
+                  "type": "string",
+                  "description": "Number of days"
+                }
+              },
+              "required": ["id"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Market chart data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "prices": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": [
+                      {"type": "number"},
+                      {"type": "number"}
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/news/top-headlines": {
+      "get": {
+        "summary": "Get top headlines",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "type": "string",
+            "description": "Country code"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "type": "string",
+            "description": "Category of news"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Top headlines",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "totalResults": {
+                  "type": "integer"
+                },
+                "articles": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "source": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "author": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "urlToImage": {
+                        "type": "string"
+                      },
+                      "publishedAt": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/news/everything": {
+      "get": {
+        "summary": "Get everything",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "type": "string",
+            "description": "Query string for searching news"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "type": "string",
+            "description": "Start date for the search"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "type": "string",
+            "description": "End date for the search"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "totalResults": {
+                  "type": "integer"
+                },
+                "articles": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "source": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "author": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "urlToImage": {
+                        "type": "string"
+                      },
+                      "publishedAt": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/news/sources": {
+      "get": {
+        "summary": "Get news sources",
+        "responses": {
+          "200": {
+            "description": "List of news sources",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "sources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "language": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
