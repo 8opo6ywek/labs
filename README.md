@@ -20,7 +20,7 @@
 
 ## Конфигурация
 
-Для использования API OpenWeatherMap и NewsAPI необходимо добавить ваши ключи API в файлы:
+Для использования API OpenWeatherMap и NewsAPI были добавлены ключи API в файлы:
 
 - **/api/openweather.py**
 - **/api/newsapi.py**
