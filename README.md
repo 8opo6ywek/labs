@@ -22,8 +22,8 @@
 
 Для использования API OpenWeatherMap и NewsAPI необходимо добавить ваши ключи API в файлы:
 
-- **/api/openweather.py**: замените `your_openweathermap_api_key` на ваш API ключ.
-- **/api/newsapi.py**: замените `your_newsapi_key` на ваш API ключ.
+- **/api/openweather.py**
+- **/api/newsapi.py**
 
 ## Зависимости
 
